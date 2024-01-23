@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { HiArrowLongLeft, HiMiniScale } from 'react-icons/hi2';
 // import { TextField, Button } from '@mui/material';
-import { styled } from '@mui/system';
+// import { styled } from '@mui/system';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import html2canvas from 'html2canvas';
@@ -22,7 +22,7 @@ const ProfileDetails = () => {
   // const [firstSix, setFirstSix] = useLocalStorage('userScore', []);
   // questionsResults
   const [modalVisibility, setModalVisibilty] = useState(false)
-  const handleModalVisibility = ()=>{
+  const handleModalVisibility = () => {
     setModalVisibilty(!modalVisibility)
   }
   const questionsResults = {
@@ -60,7 +60,7 @@ const ProfileDetails = () => {
 
   const currentTime = JSON.parse(localStorage.getItem('time'));
 
-  const handleReceiverEmail = (event)=>{
+  const handleReceiverEmail = (event) => {
     setReceiverEmail(event.target.value);
   }
 
@@ -71,7 +71,7 @@ const ProfileDetails = () => {
       // console.log('Email being submitted:', email);
       // console.log('Image code being submitted for decoding:', imageDataURL);
       setModalVisibilty(false)
-  
+
       const response = await axios.post('http://127.0.0.1:5555/send-email', {
         email: receiverEmail,
         imageAttachment: imageDataURL,
@@ -107,32 +107,32 @@ const ProfileDetails = () => {
       setProfileType('Moderately conservative');
     } else if (total_marks >= 26 && total_marks <= 34) {
       setProfileType('Moderate');
-    } else if (total_marks>= 35 && total_marks <= 44) {
+    } else if (total_marks >= 35 && total_marks <= 44) {
       setProfileType('Moderately aggressive');
     } else if (total_marks >= 45 && total_marks <= 54) {
       setProfileType('Aggressive');
     } else if (total_marks >= 55 && total_marks <= 200) {
       setProfileType('Hilarious');
     }
-  }, []);
+  }, [setProfileType]);
 
   return (
     <div id="profile-details" className="profile-details-wrap">
-      <div className={modalVisibility ?  "overlayWrap" : 'modalHidden'}>
-            <div className="emailModal">
-                <div className="mailImage">
-                    <img src="https://img.freepik.com/free-vector/contact-us-concept-landing-page_52683-13619.jpg"
-                    alt="email icon"
-                    style={{width: '100%', height: '100%', objectFit: 'cover'}}/>
-                </div>
-                <div className="closeBtn" onClick={handleModalVisibility}>X</div>
-                <div className="summary">
-                    <p>Please provide your email address so that we can send you the results of your investment profile.</p>
-                </div>
-                <input type="email" name="reciverEmail" id="reciverEmail" value={receiverEmail} onChange={handleReceiverEmail} placeholder='Example@email.com'/>
-                <button className="submitEmail" onClick={handleSendEmail}>Submit Email</button>
-            </div>
+      <div className={modalVisibility ? "overlayWrap" : 'modalHidden'}>
+        <div className="emailModal">
+          <div className="mailImage">
+            <img src="https://img.freepik.com/free-vector/contact-us-concept-landing-page_52683-13619.jpg"
+              alt="email icon"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+          <div className="closeBtn" onClick={handleModalVisibility}>X</div>
+          <div className="summary">
+            <p>Please provide your email address so that we can send you the results of your investment profile.</p>
+          </div>
+          <input type="email" name="reciverEmail" id="reciverEmail" value={receiverEmail} onChange={handleReceiverEmail} placeholder='Example@email.com' />
+          <button className="submitEmail" onClick={handleSendEmail}>Submit Email</button>
         </div>
+      </div>
       <div className="w-[85%] mx-auto py-4 bg-lightBrownBg px-4 pt-1" style={{ marginTop: '5rem', borderRadius: '1rem' }}>
         <button
           onClick={() => navigate(-1)}
