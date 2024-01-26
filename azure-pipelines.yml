@@ -1,0 +1,54 @@
+trigger:
+- main  # Update this to match your branch name
+
+pr:
+- main  # Update this to match your branch name
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: Build_Frontend
+  jobs:
+  - job: Build_Frontend
+    displayName: 'Build Frontend'
+    steps:
+    - script: |
+        cd frontend
+        npm install
+        npm run build
+      displayName: 'Build Frontend'
+
+- stage: Build_And_Deploy_Backend
+  jobs:
+  - job: Build_And_Deploy_Backend
+    displayName: 'Build and Deploy Backend'
+    steps:
+    - script: |
+        cd backend
+        # Add commands to set up and install Python dependencies
+        # For example, use virtualenv and pip
+        virtualenv env
+        source env/bin/activate
+        pip install -r requirements.txt
+        # Add additional setup steps as needed
+      displayName: 'Install Python Dependencies'
+
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '3.x'
+        addToPath: true
+      displayName: 'Use Python 3.x'
+
+    - script: |
+        cd backend
+        # Add commands to run tests, if applicable
+        python manage.py test
+      displayName: 'Run Python Tests'
+
+    - script: |
+        cd backend
+        # Add commands to deploy Python backend
+        # This could be deploying to Azure App Service, Azure Functions, or other platforms
+        # Consider using Azure CLI or other deployment tools
+      displayName: 'Deploy Python Backend'
