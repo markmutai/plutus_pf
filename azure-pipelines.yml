@@ -14,7 +14,7 @@ stages:
     displayName: 'Build Frontend'
     steps:
     - script: |
-        cd frontend
+        cd Frontend
         npm install
         npm run build
       displayName: 'Build Frontend'
@@ -25,7 +25,7 @@ stages:
     displayName: 'Build and Deploy Backend'
     steps:
     - script: |
-        cd backend
+        cd Backend
         # Add commands to set up and install Python dependencies
         # For example, use virtualenv and pip
         virtualenv env
@@ -41,13 +41,13 @@ stages:
       displayName: 'Use Python 3.x'
 
     - script: |
-        cd backend
+        cd Backend
         # Add commands to run tests, if applicable
         python manage.py test
       displayName: 'Run Python Tests'
 
     - script: |
-        cd backend
+        cd Backend
         # Add commands to deploy Python backend
         # This could be deploying to Azure App Service, Azure Functions, or other platforms
         # Consider using Azure CLI or other deployment tools
